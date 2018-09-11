@@ -15,6 +15,8 @@ func main() {
 		emptyRecord(),
 		newRecord("Massage", 1200, ds),
 		emptyRecord(),
+		newRecord("Mamamia", 1200, ds),
+		newRecord("Тест буКв", 1200, ds),
 	}}
 
 	fmt.Println("Лабораторна робота №1")
@@ -51,5 +53,6 @@ func main() {
 
 	fmt.Println("--Робота з використанням міри схожості--")
 	fmt.Println(*t.sortByStr("Ma")[0])
-	fmt.Println(cmpStr("lalAlaррр", "adap"))
+	fmt.Println(t.searchFirst("TestK"))
+
 }

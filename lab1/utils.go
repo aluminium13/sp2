@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"sort"
 	"strings"
 )
@@ -48,14 +49,35 @@ func (s *recordsSorter) Less(i, j int) bool {
 
 // cmpStr is a function to compare strings by rule from 1.3 table
 func cmpStr(a, b string) int {
-	CyrAndLat := "othpmabxkyeотнрмавхкуе"
+	CyrAndLat := "oOTHpPMaABxXKyeEоОТНрРМаАВхХКуеЕ"
 	count := 0
 	bl := strings.ToLower(b)
-	for _, char := range strings.ToLower(a) {
-		count += strings.Count(bl, string(char))
+	for _, char := range a {
+		count += strings.Count(bl, strings.ToLower(string(char)))
 		if strings.ContainsAny(CyrAndLat, string(char)) {
-			count += strings.Count(bl, pairs[string(char)])
+			count += strings.Count(b, pairs[string(char)])
 		}
 	}
 	return count
+}
+
+// searchFirst function to search the most similiar Record
+func (t *Table) searchFirst(line string) (*Record, error) {
+	result := []*Record{}
+	for _, rec := range t.records {
+		if cmpStr(line, rec.key.dsearch) > 0 {
+			result = append(result, rec)
+		}
+	}
+	if len(result) < 1 {
+		return nil, errors.New("nothing found")
+	}
+
+	sort.Slice(result[:], func(i, j int) bool {
+		return cmpStr(line, result[i].key.dsearch) > cmpStr(line, result[j].key.dsearch)
+	})
+	// for _, i := range result {
+	// 	fmt.Println(*i)
+	// }
+	return result[0], nil
 }
