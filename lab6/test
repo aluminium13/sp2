@@ -1,0 +1,15 @@
+program test;
+var
+    b : double;
+    a : array [0..4] of double;
+    n, d : integer;
+    s, v : boolean;
+    b : integer;
+
+begin
+    v := s or b;
+    v := d <> ((0 + 4) * (12.0 - 4));
+    b := 2.0 * a[n];
+    b := 0;
+    h := 72;
+end;

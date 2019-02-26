@@ -1,0 +1,1 @@
+while (n>0 and b=a[n]) do n:=n-1;
